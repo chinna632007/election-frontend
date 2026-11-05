@@ -1,0 +1,924 @@
+html:has(.municipal-page),
+body:has(.municipal-page) {
+  overflow-x: hidden;
+}
+
+.municipal-page {
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 16px 6.8% 96px;
+  color: #092f68;
+  font-family: Arial, Helvetica, sans-serif;
+
+  background-image: url("/images/bridge-bg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.municipal-page .brand {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Photo shows through the hero band, then fades to a solid white
+   sheet behind the cards — matches the reference design. */
+.municipal-page .page-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(241, 249, 255, 0.8) 0%,
+    rgba(228, 243, 255, 0.6) 160px,
+    rgba(255, 255, 255, 0.96) 320px,
+    #ffffff 430px
+  );
+}
+
+/* Desktop: crop into the photo so the water band sits behind
+   the hero instead of the sky. */
+@media (min-width: 901px) {
+  .municipal-page {
+    background-size: 200% auto;
+    background-position: 50% 100%;
+  }
+}
+
+/* HERO */
+
+.municipal-hero {
+  position: relative;
+  flex-shrink: 0;
+  padding-top: clamp(2px, 1vh, 10px);
+}
+
+/* soft animated aurora behind the hero panel */
+.hero-aurora {
+  position: absolute;
+  inset: -6% -4%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-aurora .orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(46px);
+  opacity: 0.55;
+  animation: orbFloat 16s ease-in-out infinite;
+}
+
+.hero-aurora .orb-1 {
+  width: 320px;
+  height: 320px;
+  top: -40px;
+  left: 8%;
+  background: radial-gradient(circle at 30% 30%, #7cc0f0, #7cc0f000 70%);
+}
+
+.hero-aurora .orb-2 {
+  width: 380px;
+  height: 380px;
+  top: -30px;
+  right: 6%;
+  background: radial-gradient(circle at 60% 40%, #a5e8c8, #a5e8c800 70%);
+  animation-delay: -5s;
+}
+
+.hero-aurora .orb-3 {
+  width: 280px;
+  height: 280px;
+  bottom: -60px;
+  left: 42%;
+  background: radial-gradient(circle at 50% 50%, #ffd9a8, #ffd9a800 70%);
+  animation-delay: -10s;
+}
+
+@keyframes orbFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(18px, -22px, 0) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora .orb {
+    animation: none;
+  }
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 720px;
+  margin-inline: auto;
+  padding: clamp(18px, 2.6vh, 34px) clamp(20px, 3vw, 46px);
+  border-radius: 18px;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.4))
+      padding-box,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(140, 185, 235, 0.5))
+      border-box;
+  backdrop-filter: blur(7px) saturate(140%);
+  -webkit-backdrop-filter: blur(7px) saturate(140%);
+  box-shadow: 0 18px 44px rgba(9, 47, 104, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: heroRise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  overflow: hidden;
+}
+
+/* tricolor accent strip along the top edge */
+.hero-copy::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    #ff8c1a 0%,
+    #ff8c1a 33%,
+    rgba(255, 255, 255, 0.9) 33%,
+    rgba(255, 255, 255, 0.9) 66%,
+    #138808 66%,
+    #138808 100%
+  );
+}
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-copy {
+    animation: none;
+  }
+}
+
+.hero-kicker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  padding: 7px 18px 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.85),
+    rgba(255, 255, 255, 0.4)
+  );
+  box-shadow: 0 6px 16px rgba(9, 47, 104, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  font-size: clamp(14px, 1.6vw, 21px);
+  font-weight: 700;
+  letter-spacing: clamp(2px, 0.45vw, 5px);
+  text-transform: uppercase;
+  color: #2f85bb;
+}
+
+.hero-kicker .kicker-icon {
+  width: 1.1em;
+  height: 1.1em;
+  color: #f0a02a;
+  flex-shrink: 0;
+}
+
+
+.municipal-hero h1 {
+  position: relative;
+  margin: clamp(4px, 1vh, 10px) 0 0;
+  font-size: clamp(34px, 4vw, 55px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+  color: #0d2c56;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.7);
+}
+
+.municipal-hero h1 b {
+  font-weight: 800;
+  background: linear-gradient(90deg, #1e6fd0 0%, #17a2c9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #1e6fd0;
+}
+
+.municipal-hero h2 {
+  position: relative;
+  margin: clamp(6px, 1.2vh, 12px) 0 0;
+  font-size: clamp(19px, 2.2vw, 30px);
+  font-weight: 500;
+  color: #3d7cae;
+}
+
+
+.hero-tagline {
+  position: relative;
+  margin: clamp(10px, 1.8vh, 18px) auto 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1.2vw, 18px);
+  font-size: clamp(14px, 1.2vw, 17px);
+  color: #2c5f89;
+  padding: 7px 18px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.75),
+    rgba(255, 255, 255, 0.35)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 4px 12px rgba(9, 47, 104, 0.08);
+}
+
+.hero-tagline .sep {
+  width: 1px;
+  height: 15px;
+  background: #9fbcd6;
+}
+
+.tr-back-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 22px 0 0;
+  padding: 13px 18px;
+  border-radius: 13px;
+  border: 1px solid #dfe9f5;
+  background: #fbfdff;
+  box-shadow: 0 6px 16px rgba(9, 47, 104, 0.06);
+}
+
+.tr-back-row a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #1d5fa8;
+  text-decoration: none;
+}
+
+.tr-back-row a:hover {
+  color: #0d2c56;
+  text-decoration: underline;
+}
+
+.tr-back-row svg {
+  width: 19px;
+  height: 19px;
+}
+
+.hero-highlights {
+  position: relative;
+  list-style: none;
+  margin: clamp(12px, 2vh, 22px) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.2vw, 16px);
+}
+
+.hero-highlights li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 15px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0.16)
+  );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  font-size: clamp(12px, 1.05vw, 15px);
+  font-weight: 700;
+  color: #2c5f89;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.hero-highlights li::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #34c76e, #1e8a4c);
+  box-shadow: 0 0 0 3px rgba(52, 199, 110, 0.18);
+}
+
+.hero-highlights li:nth-child(2)::before {
+  background: linear-gradient(135deg, #4f9df0, #0e63b5);
+  box-shadow: 0 0 0 3px rgba(79, 157, 240, 0.18);
+}
+
+.hero-highlights li:nth-child(3)::before {
+  background: linear-gradient(135deg, #ffb454, #e07a17);
+  box-shadow: 0 0 0 3px rgba(255, 180, 84, 0.2);
+}
+
+
+
+/* PHASE CARDS */
+
+.phases-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 1.8vw, 26px);
+  width: min(1240px, 100%);
+  margin: clamp(10px, 2vh, 24px) auto 0;
+  flex-shrink: 0;
+}
+
+.phases-head {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: clamp(6px, 1.4vh, 14px);
+}
+
+.phases-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(12px, 1vw, 14px);
+  font-weight: 700;
+  letter-spacing: clamp(2px, 0.3vw, 4px);
+  text-transform: uppercase;
+  color: #5b7595;
+}
+
+.phases-eyebrow::before,
+.phases-eyebrow::after {
+  content: "";
+  width: clamp(24px, 4vw, 54px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #9fbcd6, transparent);
+}
+
+
+.phase-card {
+  --accent: #0e63b5;
+  --accent-dark: #0b4a8f;
+  --dark: #0e3b78;
+  --wave: #cfe4fa;
+
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 26px 18px 26px;
+  border: 1px solid #c3dcf6;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #ffffff 0%, #f2f8ff 100%);
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(9, 47, 104, 0.08);
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  animation: cardIn 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* staggered reveal (phases-head is child 1, cards are children 2–5) */
+.phase-card:nth-child(3) {
+  animation-delay: 0.08s;
+}
+.phase-card:nth-child(4) {
+  animation-delay: 0.16s;
+}
+.phase-card:nth-child(5) {
+  animation-delay: 0.24s;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* colored accent strip along the top edge */
+.phase-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+}
+
+.phase-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 22px 44px rgba(9, 47, 104, 0.2);
+  box-shadow: 0 22px 44px rgba(9, 47, 104, 0.2),
+    0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phase-card {
+    transition: none;
+    animation: none;
+  }
+}
+
+
+.phase-blue {
+  --accent: #0e63b5;
+  --accent-dark: #0b4a8f;
+  --dark: #0e3b78;
+  --wave: #cfe4fa;
+  border-color: #c3dcf6;
+  background: linear-gradient(180deg, #ffffff 0%, #f1f7ff 100%);
+}
+
+.phase-green {
+  --accent: #1e8a4c;
+  --accent-dark: #17703c;
+  --dark: #14663b;
+  --wave: #c7edd4;
+  border-color: #bfe6c9;
+  background: linear-gradient(180deg, #ffffff 0%, #f0fbf3 100%);
+}
+
+.phase-orange {
+  --accent: #e07a17;
+  --accent-dark: #c96a10;
+  --dark: #92500f;
+  --wave: #f9e3c2;
+  border-color: #f5dcb4;
+  background: linear-gradient(180deg, #ffffff 0%, #fff8ec 100%);
+}
+
+.phase-purple {
+  --accent: #6b3fa8;
+  --accent-dark: #56308b;
+  --dark: #2f2266;
+  --wave: #e2d6f8;
+  border-color: #dcd0f5;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f5ff 100%);
+}
+
+.phase-slate {
+  --accent: #3d5a80;
+  --accent-dark: #2f4768;
+  --dark: #1d2d44;
+  --wave: #d6e2f0;
+  border-color: #ccd9ea;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f8fc 100%);
+}
+
+.phase-visual {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* circular gradient disc holding the illustration */
+.phase-disc {
+  position: relative;
+  width: clamp(126px, 11vw, 158px);
+  height: clamp(126px, 11vw, 158px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, #ffffff 0%, rgba(255, 255, 255, 0) 60%),
+    linear-gradient(160deg, var(--wave) 0%, #ffffff 100%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.85),
+    0 8px 20px rgba(9, 47, 104, 0.1);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.phase-card:hover .phase-disc {
+  transform: translateY(-3px);
+  box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.9),
+    0 14px 28px rgba(9, 47, 104, 0.16);
+}
+
+.phase-art {
+  width: clamp(92px, 7.5vw, 118px);
+  height: auto;
+  display: block;
+}
+
+.phase-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: clamp(34px, 3vw, 42px);
+  height: clamp(34px, 3vw, 42px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #ffffff;
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 800;
+  border: 3px solid #ffffff;
+  box-shadow: 0 5px 12px rgba(9, 47, 104, 0.28);
+}
+
+.phase-badge svg {
+  width: 55%;
+  height: 55%;
+}
+
+.phase-card h3 {
+  position: relative;
+  z-index: 1;
+  margin: 12px 0 0;
+  padding-bottom: 8px;
+  font-size: clamp(20px, 1.7vw, 25px);
+  font-weight: 800;
+  color: var(--dark);
+}
+
+/* accent underline that grows on hover */
+.phase-card h3::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+  transition: width 0.25s;
+}
+
+.phase-card:hover h3::after {
+  width: 76px;
+}
+
+
+.phase-card p {
+  position: relative;
+  z-index: 1;
+  margin: 9px 0 0;
+  min-height: 66px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #40587a;
+}
+
+.phase-cta {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 20px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--accent-dark);
+  text-decoration: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.12)
+  );
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.phase-card:hover .phase-cta {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 10px 20px rgba(9, 47, 104, 0.24);
+}
+
+.phase-arrow {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 1;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.phase-card:hover .phase-arrow {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateX(3px);
+}
+
+.card-wave {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
+  width: 100%;
+  height: 64px;
+  color: var(--wave);
+  pointer-events: none;
+}
+
+/* MOTTO */
+
+.municipal-motto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 2vw, 24px);
+  margin: clamp(20px, 3.4vh, 40px) auto 0;
+  flex-shrink: 0;
+}
+
+.municipal-motto p {
+  margin: 0;
+  padding: clamp(8px, 1.4vh, 13px) clamp(18px, 2.4vw, 30px);
+  font-size: clamp(12px, 1.1vw, 15px);
+  font-weight: 700;
+  letter-spacing: clamp(2px, 0.35vw, 5px);
+  text-transform: uppercase;
+  color: #3a5f83;
+  white-space: nowrap;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.78),
+    rgba(255, 255, 255, 0.38)
+  );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 8px 20px rgba(9, 47, 104, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.municipal-motto b {
+  color: #2f85bb;
+  font-weight: 700;
+}
+
+.municipal-motto .rule {
+  width: clamp(46px, 7vw, 105px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #8aa5c2, transparent);
+}
+
+
+/* TABLET */
+
+@media (max-width: 900px) {
+  .municipal-page {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+
+  .phases-section {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 720px;
+  }
+
+  .phase-card p {
+    min-height: auto;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .municipal-page {
+    padding: 14px 16px 80px;
+  }
+
+  .municipal-hero {
+    padding-top: 6px;
+  }
+
+  .hero-kicker {
+    font-size: 14px;
+    letter-spacing: 3px;
+  }
+
+  .municipal-hero h1 {
+    font-size: 30px;
+  }
+
+  .municipal-hero h2 {
+    font-size: 18px;
+  }
+
+  .hero-tagline {
+    gap: 8px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+
+  .phases-section {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    max-width: 400px;
+    margin-top: 16px;
+  }
+
+  .phase-card {
+    padding: 16px 16px 20px;
+  }
+
+  .phase-art {
+    width: 100px;
+  }
+
+  .phase-card h3 {
+    font-size: 20px;
+    margin-top: 8px;
+  }
+
+  .phase-card p {
+    margin-top: 6px;
+    font-size: 14px;
+  }
+
+  .phase-cta {
+    margin-top: 10px;
+    font-size: 14px;
+    padding: 7px 13px 7px 16px;
+  }
+
+  .card-wave {
+    height: 52px;
+  }
+
+  .municipal-motto {
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .municipal-motto p {
+    font-size: 11px;
+    letter-spacing: 2px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .municipal-motto .rule {
+    width: 26px;
+  }
+
+  .page-footer {
+    height: clamp(85px, 14vh, 130px);
+  }
+}
+
+/* SHORT SCREENS — keep the whole page visible without scrolling */
+
+@media (min-width: 601px) and (max-height: 780px) {
+  .municipal-page {
+    padding-top: 12px;
+    padding-bottom: 84px;
+  }
+
+  .municipal-hero {
+    padding-top: 0;
+  }
+
+  .municipal-hero h1 {
+    font-size: clamp(30px, 3.6vw, 44px);
+  }
+
+  .municipal-hero h2 {
+    font-size: clamp(17px, 1.9vw, 24px);
+  }
+
+  .hero-tagline {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .hero-highlights {
+    margin-top: 10px;
+  }
+
+  .hero-highlights li {
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+
+  .phases-section {
+    margin-top: 14px;
+  }
+
+  .phase-card {
+    padding: 16px 14px 20px;
+  }
+
+  .phase-art {
+    width: clamp(82px, 7vw, 100px);
+  }
+
+  .phase-card h3 {
+    margin-top: 8px;
+    font-size: clamp(18px, 1.5vw, 22px);
+  }
+
+  .phase-card p {
+    margin-top: 6px;
+    min-height: auto;
+    font-size: 14px;
+  }
+
+  .phase-cta {
+    margin-top: 10px;
+    font-size: 14px;
+    padding: 7px 13px 7px 16px;
+  }
+
+  .card-wave {
+    height: 52px;
+  }
+
+  .municipal-motto {
+    margin-top: 14px;
+  }
+
+  .page-footer {
+    height: clamp(90px, 14vh, 130px);
+  }
+}
+
+@media (max-width: 600px) and (max-height: 740px) {
+  .municipal-page {
+    padding: 10px 14px 68px;
+  }
+
+  .municipal-page .brand-info p {
+    display: none;
+  }
+
+  .municipal-hero h1 {
+    font-size: 26px;
+  }
+
+  .municipal-hero h2 {
+    font-size: 16px;
+  }
+
+  .hero-tagline {
+    display: none;
+  }
+
+  .hero-highlights {
+    display: none;
+  }
+
+  .phases-section {
+    margin-top: 12px;
+    gap: 10px;
+  }
+
+  .phase-art {
+    width: 84px;
+  }
+
+  .phase-card p {
+    font-size: 13px;
+  }
+
+  .page-footer {
+    height: 74px;
+  }
+}

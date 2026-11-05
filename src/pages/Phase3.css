@@ -1,0 +1,645 @@
+/* ============================================================================
+   Phase 3 – Ballot Allocation
+   Matches the shared look of the other phase pages (Phase 1 / Phase 2):
+   the same blue page chrome, title icon, info box, upload cards and primary
+   button. Only Phase 3-specific blocks are defined here — the "officers from
+   Phase 2" strip, the dual upload grid, the allocate button, and role tags.
+   ========================================================================== */
+
+.p3-page .page-overlay {
+  display: none;
+}
+
+/* --------------------------- officers strip --------------------------- */
+
+.p3-officers {
+  margin: 2px 0 22px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid #dbe8f6;
+  background: linear-gradient(120deg, #f4f9ff 0%, #ffffff 70%);
+  box-shadow: 0 8px 20px rgba(9, 47, 104, 0.06);
+}
+
+.p3-officers-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.p3-officers-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #1d5fa8;
+}
+
+.p3-officers-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2f85bb;
+  text-decoration: none;
+}
+
+.p3-officers-link:hover {
+  text-decoration: underline;
+}
+
+.p3-officer-pills {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.p3-officer-pill {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  min-width: 190px;
+  border: 1px solid #dbe8f6;
+  background: #ffffff;
+}
+
+.p3-officer-pill-icon {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #1d5fa8;
+  background: #e8f1fb;
+}
+
+.p3-officer-pill-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.p3-officer-pill-meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.p3-officer-pill-count {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0d2c56;
+}
+
+.p3-officer-pill-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #6b829c;
+}
+
+/* Team-data pill tones (Presiding / APO / NA) shown below the Phase 3 table */
+.p3-officer-pill.p3-tone-presiding {
+  border-color: #17703c;
+  background: #eef7f0;
+}
+
+.p3-officer-pill.p3-tone-apo {
+  border-color: #a97b12;
+  background: #fdf1d6;
+}
+
+.p3-officer-pill.p3-tone-opo {
+  border-color: #1d5fa8;
+  background: #e8f1fb;
+}
+
+.p3-officer-pill.p3-tone-micro {
+  border-color: #187447;
+  background: #eaf6ef;
+}
+
+.p3-officer-pill.p3-tone-na {
+  border-color: #8a6d2f;
+  background: #fff8e9;
+}
+
+.p3-officers-warn {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: #8a6d2f;
+  background: #fff8e9;
+  border: 1px solid #f6e2b8;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+/* --------------------------- dual upload grid ------------------------- */
+
+.p3-upload-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 1.8vw, 22px);
+  margin-top: clamp(16px, 2.4vh, 26px);
+}
+
+.p3-upload-card {
+  border-top: 3px solid #cfe2f6;
+}
+
+/* --------------------------- allocate action -------------------------- */
+
+.p3-allocate-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: clamp(16px, 2.4vh, 26px);
+}
+
+.p3-allocate-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 28px;
+  border-radius: 12px;
+  border: 1px solid #2f74b0;
+  background: linear-gradient(135deg, #2f85bb, #073774);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(18, 59, 112, 0.28);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+
+.p3-allocate-btn svg {
+  width: 19px;
+  height: 19px;
+}
+
+.p3-allocate-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(18, 59, 112, 0.36);
+}
+
+.p3-allocate-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.p3-reset-btn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid #cfe2f6;
+  background: #fff;
+  color: #40628a;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.p3-reset-btn:hover {
+  background: #f2f8ff;
+  border-color: #2f85bb;
+}
+
+/* -------------------------- table role tags --------------------------- */
+
+.p3-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.p3-role svg {
+  width: 13px;
+  height: 13px;
+}
+
+.p3-role.presiding {
+  color: #17703c;
+  background: #dff5e6;
+}
+
+.p3-role.polling {
+  color: #a97b12;
+  background: #fdf1d6;
+}
+
+/* ------------------------------ responsive ---------------------------- */
+
+@media (max-width: 1080px) {
+  .p3-upload-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .p3-allocate-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .p3-allocate-btn {
+    width: 100%;
+  }
+
+  .p3-officer-pill {
+    min-width: 0;
+    flex: 1;
+  }
+}
+
+/* -------------------------- post-allocation actions ----------------------- */
+
+.p3-next-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 16px 0 2px;
+  padding-top: 10px;
+  border-top: 1px solid #e3ecf5;
+}
+
+.p3-next-actions .p3-next-btn,
+.p3-next-actions .p3-idcard-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #c9d6e6;
+  background: #ffffff;
+  color: #1a3c5a;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.p3-next-actions .p3-next-btn:hover:not(:disabled) {
+  border-color: #1a3c5a;
+  background: #f4f7fb;
+}
+
+.p3-next-actions .p3-idcard-btn:hover:not(:disabled) {
+  border-color: #7a5a00;
+  background: #fdf6e7;
+}
+
+.p3-next-actions .p3-next-btn:disabled,
+.p3-next-actions .p3-idcard-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  border-color: #d8e2ec;
+  color: #9aa7b4;
+}
+
+.p3-next-actions .p3-next-note {
+  margin-left: 12px;
+  font-size: 12px;
+  color: #4a6582;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .p3-next-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .p3-next-actions .p3-next-btn,
+  .p3-next-actions .p3-idcard-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .p3-next-actions .p3-next-note {
+    margin-left: 0;
+    margin-top: 6px;
+    text-align: center;
+  }
+}
+
+
+/* ---------------- Duty allocation (Stage 2 -> Stage 3) -------------------
+ * Verification table: one row per team with its Stage-3 station allotment,
+ * member list, and the per-team notification send button. Button/note styles
+ * are scoped here (Training.css defines the originals but is not imported by
+ * this page — keeps this page self-contained).
+ */
+.p3-duty {
+  margin-top: 18px;
+}
+
+.p3-roster-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.p3-roster-actions select {
+  min-height: 36px;
+  padding: 0 30px 0 10px;
+  border: 1px solid #cfe2f6;
+  border-radius: 8px;
+  background: #fff;
+  color: #092f68;
+}
+
+.p3-station-cell {
+  color: #0b5b39;
+  background: #edf7f0;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.35;
+}
+
+.p3-role small {
+  margin-left: 5px;
+  color: currentColor;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.p3-duty .p1-mini-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 10px;
+  border: 1px solid #cfe2f6;
+  background: #fff;
+  color: #092f68;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+
+.p3-duty .p1-mini-btn:hover:not(:disabled) {
+  background: #eef6ff;
+  border-color: #2f85bb;
+  color: #073774;
+  box-shadow: 0 2px 6px rgba(47, 133, 187, 0.12);
+}
+
+.p3-duty .p1-mini-btn:active:not(:disabled) {
+  transform: translateY(0.5px);
+}
+
+.p3-duty .p1-mini-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(0.35);
+}
+
+.p3-duty .p1-note {
+  padding: 7px 12px;
+  border-radius: 10px;
+  background: #eef6ff;
+  color: #092f68;
+  font-size: 12.5px;
+  font-weight: 600;
+  border: 1px solid #bfe3fd;
+  margin-top: 6px;
+  line-height: 1.45;
+}
+
+.p3-teamcode-cell {
+  font-weight: 700;
+  color: #0c3e7a;
+  letter-spacing: 0.5px;
+}
+
+.p3-role.micro {
+  color: #6b21a8;
+  background: #f3e8ff;
+  border: 1px solid #e9d5ff;
+}
+
+.p3-download-alloc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  min-height: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid #10b981;
+  background: #ecfdf5;
+  color: #065f46;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(16, 185, 129, 0.08);
+  transition: all 0.15s ease;
+}
+
+.p3-download-alloc-btn svg {
+  width: 14px !important;
+  height: 14px !important;
+  flex-shrink: 0;
+}
+
+.p3-download-alloc-btn:hover:not(:disabled) {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #059669;
+}
+
+.p3-download-alloc-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  border-color: #d1d5db;
+  color: #9ca3af;
+  background: #f3f4f6;
+}
+
+.p3-toggle-rem-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  min-height: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid #f97316;
+  background: #fff7ed;
+  color: #c2410c;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.p3-toggle-rem-btn svg {
+  width: 14px !important;
+  height: 14px !important;
+  flex-shrink: 0;
+}
+
+.p3-toggle-rem-btn:hover {
+  background: #f97316;
+  color: #ffffff;
+}
+
+.p3-toggle-rem-btn.is-open {
+  background: #ea580c;
+  color: #ffffff;
+}
+
+/* Phase 3 View & Download Controls */
+.p3-control-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.p3-select-compact {
+  min-height: 34px;
+  height: 34px;
+  padding: 0 24px 0 10px;
+  border-radius: 8px;
+  border: 1px solid #93c5fd;
+  background: #eff6ff;
+  color: #1e40af;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.p3-select-compact:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.p3-select-compact.p3-select-green {
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.p3-select-compact.p3-select-green:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.p3-download-ctrl-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.p3-btn-download-cat {
+  background: #059669 !important;
+  color: #ffffff !important;
+  border-color: #047857 !important;
+}
+
+.p3-btn-download-cat:hover:not(:disabled) {
+  background: #047857 !important;
+  color: #ffffff !important;
+}
+
+/* Decreased gap between PO, APO, MO and Mandal columns */
+.p3-station-alloc-table {
+  width: 100% !important;
+  min-width: unset !important;
+  max-width: 100% !important;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.p3-station-alloc-table th,
+.p3-station-alloc-table td {
+  padding: 7px 8px !important;
+  font-size: 12.5px;
+  vertical-align: middle;
+}
+
+.p3-station-alloc-table th {
+  white-space: nowrap;
+}
+
+/* Polling Station & Complete Address column: wrap long address text onto next line within same cell */
+.p3-station-alloc-table th.p3-col-address,
+.p3-station-alloc-table td.p3-col-address {
+  width: 310px !important;
+  min-width: 220px !important;
+  max-width: 340px !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+  vertical-align: middle !important;
+}
+
+.p3-station-header {
+  margin-bottom: 3px;
+  white-space: normal !important;
+}
+
+.p3-station-alloc-table .p3-station-cell {
+  white-space: normal !important;
+  word-break: break-word !important;
+  line-height: 1.35 !important;
+  display: inline-block !important;
+}
+
+.p3-station-addr {
+  font-size: 11.5px !important;
+  color: #475569 !important;
+  margin-top: 4px !important;
+  line-height: 1.4 !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+  max-width: 320px !important;
+  display: block !important;
+}
+
+.p3-station-alloc-table th.p3-col-po,
+.p3-station-alloc-table td.p3-col-po,
+.p3-station-alloc-table th.p3-col-apo,
+.p3-station-alloc-table td.p3-col-apo,
+.p3-station-alloc-table th.p3-col-mo,
+.p3-station-alloc-table td.p3-col-mo,
+.p3-station-alloc-table th.p3-col-mandal,
+.p3-station-alloc-table td.p3-col-mandal {
+  padding: 5px 6px !important;
+  white-space: nowrap !important;
+  width: 1% !important; /* shrink-wrap column tightly to content */
+}
+
+.p3-station-alloc-table .p3-role {
+  padding: 2.5px 7px !important;
+  gap: 5px !important;
+  font-size: 12px !important;
+  letter-spacing: 0;
+}

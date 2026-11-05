@@ -1,0 +1,651 @@
+
+html:has(.landing-page),
+body:has(.landing-page) {
+  overflow: hidden;
+}
+
+.landing-page {
+  box-sizing: border-box;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.5vh, 16px);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 16px 6.8% 78px;
+  color: #092f68;
+  font-family: Arial, Helvetica, sans-serif;
+
+  background-image: url("/images/bridge-bg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.page-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(241, 249, 255, 0.94) 0%,
+    rgba(218, 239, 255, 0.76) 34%,
+    rgba(11, 71, 119, 0.12) 100%
+  );
+}
+
+/* HEADER */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.emblem {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brand-info h2 {
+  font-size: clamp(20px, 1.9vw, 26px);
+  margin: 0 0 2px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.brand-info h3 {
+  font-size: clamp(17px, 1.5vw, 21px);
+  margin: 0 0 4px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.brand-info p {
+  color: #405a77;
+  font-size: 14px;
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.login-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 35px;
+  background: linear-gradient(135deg, #2866ae, #073774);
+  border: 1px solid #8ab4e6;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 6px 16px #123b702e;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.login-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 9px 22px #123b7040;
+}
+
+.lock-icon {
+  font-size: 15px;
+}
+
+/* Signed-in user chip (shown instead of the Login button when logged in) */
+.user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 180px;
+  padding: 9px 20px;
+  border-radius: 35px;
+  background: linear-gradient(135deg, #e9f6ee, #d6ecdd);
+  border: 1px solid #9ed3b1;
+  color: #14663b;
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 6px 16px rgba(9, 47, 104, 0.12);
+}
+
+.user-avatar {
+  width: 18px;
+  height: 18px;
+  color: #1e8a4c;
+  flex-shrink: 0;
+}
+
+
+.district-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #142f54;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.district-map {
+  width: 74px;
+  height: 64px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* WELCOME SECTION */
+
+.welcome-section {
+  text-align: center;
+  flex-shrink: 0;
+  margin: auto auto clamp(14px, 3.5vh, 55px);
+}
+
+.welcome-section h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 3.5vw, 52px);
+  line-height: 1.2;
+  font-weight: 700;
+  color: #092f68;
+}
+
+.welcome-section h1 span {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.8em;
+}
+
+.welcome-section h2 {
+  margin: 5px 0 0;
+  font-size: clamp(24px, 2.5vw, 35px);
+}
+
+.tagline {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.tagline p {
+  margin: 0;
+  font-size: clamp(14px, 1.5vw, 20px);
+  color: #355879;
+}
+
+.line {
+  width: 50px;
+  height: 2px;
+  background: #9bbbd9;
+}
+
+/* ELECTION CARDS */
+
+.election-section {
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto auto;
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.election-card {
+  min-width: 0;
+  padding: clamp(14px, 2.2vh, 20px) 24px clamp(16px, 2.8vh, 25px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 22px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 30px rgba(16, 47, 77, 0.22);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.election-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 36px rgba(16, 47, 77, 0.3);
+}
+
+.municipal {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.97),
+    rgba(216, 237, 255, 0.96)
+  );
+}
+
+.panchayat {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.97),
+    rgba(221, 255, 222, 0.96)
+  );
+}
+
+.illustration {
+  height: clamp(100px, 15vh, 140px);
+  margin-bottom: 10px;
+}
+
+.illustration img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.election-card h2 {
+  margin: 0 0 12px;
+  font-size: clamp(20px, 2vw, 27px);
+}
+
+.municipal h2 {
+  color: #07356e;
+}
+
+.panchayat h2 {
+  color: #08743d;
+}
+
+.election-card p {
+  margin: 0;
+  min-height: 66px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #344f68;
+}
+
+.details-btn {
+  width: 140px;
+  max-width: 100%;
+  min-height: 49px;
+  margin: 12px auto 0;
+  padding: 12px 24px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 700;
+  box-shadow: 0 6px 14px #12365025;
+  transition: transform 0.2s;
+}
+
+.details-btn:hover {
+  transform: translateY(-3px);
+}
+
+.municipal .details-btn {
+  background: linear-gradient(135deg, #2467b5, #073879);
+}
+
+.panchayat .details-btn {
+  background: linear-gradient(135deg, #07874b, #006535);
+}
+
+.details-btn span {
+  font-size: 23px;
+}
+
+/* TRICOLOR WAVE FOOTER */
+
+.page-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(110px, 17vh, 170px);
+  pointer-events: none;
+}
+
+.footer-wave {
+  position: absolute;
+  bottom: 0;
+  display: block;
+}
+
+.footer-wave--left {
+  left: 0;
+  height: 100%;
+}
+
+.footer-wave--right {
+  right: 0;
+  height: 100%;
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+  .landing-page {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+
+  .emblem {
+    width: 75px;
+    height: 75px;
+  }
+
+  .brand {
+    gap: 12px;
+  }
+
+  .district-info {
+    display: none;
+  }
+
+  .footer-wave--left {
+    left: 0;
+    bottom: -34px;
+    width: 46vw;
+    height: auto;
+  }
+
+  .footer-wave--right {
+    right: 0;
+    bottom: -30px;
+    width: 50vw;
+    height: auto;
+  }
+
+  .election-section {
+    max-width: 760px;
+    gap: 18px;
+  }
+
+  .election-card {
+    padding: 18px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .landing-page {
+    padding: 14px 16px 64px;
+  }
+
+  .header {
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    gap: 10px;
+  }
+
+  .emblem {
+    width: 48px;
+    height: 48px;
+  }
+
+  .brand-info h2 {
+    font-size: 15px;
+  }
+
+  .brand-info h3 {
+    font-size: 14px;
+  }
+
+  .brand-info p {
+    font-size: 10px;
+  }
+
+  .header-actions {
+    margin-left: auto;
+  }
+
+  .login-btn {
+    padding: 9px 16px;
+    font-size: 14px;
+  }
+
+  .welcome-section {
+    margin: auto auto 12px;
+  }
+
+  .welcome-section h1 {
+    font-size: 27px;
+  }
+
+  .welcome-section h2 {
+    font-size: 22px;
+  }
+
+  .tagline {
+    gap: 0;
+    margin-top: 8px;
+  }
+
+  .tagline p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .election-section {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .election-card {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 12px 16px 14px;
+  }
+
+  .election-card h2 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .illustration {
+    height: clamp(64px, 10vh, 100px);
+  }
+
+  .election-card p {
+    min-height: auto;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .details-btn {
+    width: 180px;
+    min-height: 40px;
+    margin-top: 8px;
+    padding: 9px 18px;
+    font-size: 14px;
+  }
+
+  .details-btn span {
+    font-size: 19px;
+  }
+
+  .page-footer {
+    height: clamp(85px, 14vh, 130px);
+  }
+}
+
+/* SHORT SCREENS — compact further so everything fits without scrolling */
+
+@media (min-width: 601px) and (max-height: 760px) {
+  .landing-page {
+    padding-bottom: 68px;
+    gap: clamp(4px, 1vh, 10px);
+  }
+
+  .welcome-section h1 {
+    font-size: clamp(28px, 3vw, 40px);
+  }
+
+  .welcome-section h2 {
+    font-size: clamp(20px, 2vw, 28px);
+  }
+
+  .tagline {
+    margin-top: 8px;
+  }
+
+  .illustration {
+    height: clamp(80px, 12vh, 110px);
+  }
+
+  .election-card p {
+    min-height: auto;
+    font-size: 15px;
+  }
+
+  .page-footer {
+    height: clamp(90px, 14vh, 130px);
+  }
+}
+
+@media (max-width: 600px) and (max-height: 740px) {
+  .landing-page {
+    padding: 10px 14px 56px;
+    gap: 4px;
+  }
+
+  .brand-info p {
+    display: none;
+  }
+
+  .welcome-section {
+    margin: auto auto 8px;
+  }
+
+  .welcome-section h1 {
+    font-size: 23px;
+  }
+
+  .welcome-section h2 {
+    font-size: 18px;
+  }
+
+  .tagline {
+    display: none;
+  }
+
+  .illustration {
+    height: 56px;
+  }
+
+  .election-card p {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .details-btn {
+    min-height: 36px;
+    padding: 7px 16px;
+    font-size: 13px;
+    margin-top: 6px;
+  }
+
+  .page-footer {
+    height: 72px;
+  }
+
+  .topbar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-width: 140px;
+    padding: 10px 20px;
+    border-radius: 11px;
+    border: 1px solid #dfe9f5;
+    background: linear-gradient(135deg, #1d5fa8, #0d2c56);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(9, 47, 104, 0.24);
+    transition: transform 0.18s, box-shadow 0.18s, filter 0.18s;
+    text-decoration: none;
+  }
+
+  .topbar-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(9, 47, 104, 0.30);
+    filter: brightness(1.04);
+  }
+
+  .topbar-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* back button (returns to election context home) */
+  .tr-back-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 22px 0 0;
+    padding: 13px 18px;
+    border-radius: 13px;
+    border: 1px solid #dfe9f5;
+    background: #fbfdff;
+    box-shadow: 0 6px 16px rgba(9, 47, 104, 0.06);
+  }
+
+  .tr-back-row a {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 15px;
+    font-weight: 800;
+    color: #1d5fa8;
+    text-decoration: none;
+  }
+
+  .tr-back-row a:hover {
+    color: #0d2c56;
+    text-decoration: underline;
+  }
+
+  .tr-back-row svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  @media (max-width: 720px) {
+    .topbar-btn { min-width: 110px; }
+    .tr-back-row { width: 100%; }
+  }
+}
