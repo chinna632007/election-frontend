@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Landing from "./pages/Landing.jsx";
 import Login from "./pages/Login.jsx";
 import Municipal from "./pages/Municipal.jsx";
-import Panchayat from "./pages/Panchayat.jsx";
 import Phase1 from "./pages/Phase1.jsx";
 import Phase2 from "./pages/Phase2.jsx";
 import Phase3 from "./pages/Phase3.jsx";
@@ -106,13 +105,8 @@ function App() {
   }
 
   // Municipal elections pages
-  if (path.startsWith("/elections/municipal")) {
+  if (path.startsWith("/elections/municipal") || path.startsWith("/elections/panchayat")) {
     return <Municipal />;
-  }
-
-  // Panchayat (Gram Panchayat) elections pages
-  if (path.startsWith("/elections/panchayat")) {
-    return <Panchayat />;
   }
 
   // Direct shortcut / fallback routes (defaulting to municipal context)

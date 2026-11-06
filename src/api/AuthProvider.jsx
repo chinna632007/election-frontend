@@ -35,6 +35,9 @@ export function AuthProvider({ children }) {
   const login = useCallback(
     (creds) =>
       api.login(creds).then((data) => {
+        try {
+          if (typeof sessionStorage !== "undefined") sessionStorage.clear();
+        } catch {}
         setUser(data?.user ?? null);
         setStatus(data?.user ? "authenticated" : "anonymous");
         return data?.user ?? null;
@@ -48,6 +51,9 @@ export function AuthProvider({ children }) {
         .logout()
         .catch(() => {})
         .finally(() => {
+          try {
+            if (typeof sessionStorage !== "undefined") sessionStorage.clear();
+          } catch {}
           setUser(null);
           setStatus("anonymous");
         }),

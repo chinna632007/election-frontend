@@ -98,6 +98,9 @@ function Login() {
         password,
         captcha: captcha.trim(),
       });
+      try {
+        if (typeof sessionStorage !== "undefined") sessionStorage.clear();
+      } catch {}
       const returnTo = new URLSearchParams(window.location.search).get("returnTo");
       const destination = returnTo && returnTo.startsWith("/elections/") && !returnTo.startsWith("//")
         ? returnTo
@@ -159,8 +162,7 @@ function Login() {
               <EyeIcon hidden={!showPassword} />
             </button>
           </label>
-
-          <a href="/forgot-password">Forgot Password?</a>
+         <br />
 
           <CaptchaImage key={captchaNonce} onError={setError} />
 
@@ -168,7 +170,7 @@ function Login() {
             <input
               type="text"
               name="captcha"
-              placeholder="Enter the characters above"
+              placeholder="Enter the above captcha"
               autoComplete="off"
               value={captcha}
               onChange={(event) => setCaptcha(event.target.value)}

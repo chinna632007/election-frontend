@@ -539,6 +539,22 @@ export default function Phase2({ context = "municipal" }) {
       try {
         setLoadingPhase2(true);
         setWorkflowError("");
+        const sessionUploaded = typeof sessionStorage !== "undefined"
+          ? sessionStorage.getItem(`phase1_session_uploaded_${context}`)
+          : null;
+        if (!sessionUploaded) {
+          if (!cancelled) {
+            setApprovedSource([]);
+            setRows([]);
+            setSourceBatchId(null);
+            setPartitioned(false);
+            setMoList([]);
+            setLoadedContext(context);
+            setLoadingPhase2(false);
+          }
+          return;
+        }
+
         const savedPhase1 = await getWorkflowData(context, "phase1");
         const batchId = savedPhase1?.value?.batchId;
         if (!batchId) {

@@ -586,6 +586,17 @@ export default function Phase3({ context = "municipal" }) {
     setErrorMsg("");
     (async () => {
       try {
+        const sessionUploaded = typeof sessionStorage !== "undefined"
+          ? sessionStorage.getItem(`phase1_session_uploaded_${context}`)
+          : null;
+        if (!sessionUploaded) {
+          if (!cancelled) {
+            setResult({ summary: { total: 0, mapped: 0, unmapped: 0, byRole: {} }, rows: [] });
+            setStatus("idle");
+          }
+          return;
+        }
+
         const [phase2, phase3] = await Promise.all([
           getWorkflowData(context, "phase2"),
           getWorkflowData(context, "phase3"),

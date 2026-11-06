@@ -115,7 +115,6 @@ export default function Training({ context } = {}) {
   const [locMsg, setLocMsg] = useState(null);
   const [showRemainingVenues, setShowRemainingVenues] = useState(false);
   const [remainingVenuesPage, setRemainingVenuesPage] = useState(1);
-  const [selectedAllocationAction, setSelectedAllocationAction] = useState("BOTH"); // "PO-APO" | "MO" | "BOTH"
 
   // Status & messages
   const [allocating, setAllocating] = useState(false);
@@ -130,6 +129,19 @@ export default function Training({ context } = {}) {
   // Load all workflow data across phases
   const loadWorkflowState = useCallback(async () => {
     try {
+      const sessionUploaded = typeof sessionStorage !== "undefined"
+        ? sessionStorage.getItem(`phase1_session_uploaded_${workflowContext}`)
+        : null;
+      if (!sessionUploaded) {
+        setPhase1Data(null);
+        setPhase2Rows([]);
+        setPhase3Rows([]);
+        setPoApoTrainingRows([]);
+        setMoTrainingRows([]);
+        setBatches([]);
+        return;
+      }
+
       const [p1, p2, p3, tr, locData] = await Promise.all([
         getWorkflowData(workflowContext, "phase1").catch(() => null),
         getWorkflowData(workflowContext, "phase2").catch(() => null),
@@ -754,12 +766,13 @@ export default function Training({ context } = {}) {
       setLocMsg(null);
       setUploadingLoc(true);
       const data = await uploadTrainingLocations(file);
-      const n = data.count ?? data.replaced ?? 0;
-      setLocMsg(`Uploaded ${n} training location${n === 1 ? "" : "s"}.`);
       const locs = await listTrainingLocations();
-      const list = Array.isArray(locs.locations) ? locs.locations : [];
+      const list = Array.isArray(locs?.locations) ? locs.locations : [];
       setAllLocations(list);
-      setLocCount(locs.count ?? list.length);
+      setLocCount(locs?.count ?? list.length);
+      const n = data?.acceptedRows ?? data?.count ?? data?.replaced ?? list.length ?? 0;
+      const rejectedNote = data?.rejectedRows ? ` (${data.rejectedRows} row(s) skipped)` : "";
+      setLocMsg(`Uploaded ${n} training location${n === 1 ? "" : "s"}${rejectedNote}.`);
     } catch (e) {
       setError(e.message || "Locations upload failed");
     } finally {
@@ -927,28 +940,12 @@ export default function Training({ context } = {}) {
             </label>
 
             <div className="tr-allocation-controls">
-              <select
-                className="tr-allocation-select"
-                value={selectedAllocationAction}
-                onChange={(e) => setSelectedAllocationAction(e.target.value)}
-                aria-label="Select Venue Allocation Target"
-                title="Select officer category to allocate training venues for"
-              >
-                <option value="PO-APO">Allocate PO/APO venues</option>
-                <option value="MO">Allocate MO venues</option>
-                <option value="BOTH">Allocate both PO/APO and MO venues</option>
-              </select>
-
               <button
                 type="button"
                 className="tr-allocate-btn"
                 disabled={!canGenerateTraining || allocating}
-                onClick={() => {
-                  if (selectedAllocationAction === "PO-APO") runAllocatePoApo();
-                  else if (selectedAllocationAction === "MO") runAllocateMo();
-                  else runAllocateBoth();
-                }}
-                title="Execute venue allocation for the selected category"
+                onClick={runAllocateBoth}
+                title="Allocate training venues for PO/APO and Micro Observers"
               >
                 {allocating ? "Allocating…" : "Allocate Venues"}
               </button>

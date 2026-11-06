@@ -371,11 +371,7 @@ function Municipal() {
             Municipal Elections
           </p>
 
-          <h1>
-            Kakinada
-          </h1>
-
-          <h2>Election Commission management</h2>
+          <h2>District Election Commission management</h2>
 
           <p className="hero-tagline">
             <span>Stay informed</span>

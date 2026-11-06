@@ -2,26 +2,15 @@
 import "./landing.css";
 import Header from "../components/Header.jsx";
 import FooterWaves from "../components/FooterWaves.jsx";
-const elections = [
-  {
-    id: "municipal",
-    title: "Municipal Elections",
-    description:
-      "Elections to Municipal Corporations, Municipalities and Nagar Panchayats in Kakinada District",
-    image: "/images/municipal.png",
-    theme: "municipal",
-    link: "/elections/municipal",
-  },
-  {
-    id: "panchayat",
-    title: "Panchayat Elections",
-    description:
-      "Elections to Zilla Parishads, Mandal Parishads and Gram Panchayats in Kakinada District",
-    image: "/images/panchayat.png",
-    theme: "panchayat",
-    link: "/elections/panchayat",
-  },
-];
+const municipalElection = {
+  id: "municipal",
+  title: "Municipal Elections",
+  description:
+    "Elections to Municipal Corporations, Municipalities and Nagar Panchayats in Andhra Pradesh State",
+  image: "/images/municipal.png",
+  theme: "municipal",
+  link: "/elections/municipal",
+};
 
 function ElectionCard({ election }) {
   const onNav = (e) => {
@@ -68,8 +57,6 @@ function Landing() {
           District Election Commission
         </h1>
 
-        <h2>Kakinada District</h2>
-
         <div className="tagline">
           <span className="line" />
           <p>
@@ -80,12 +67,7 @@ function Landing() {
       </section>
 
       <section className="election-section">
-        {elections.map((election) => (
-          <ElectionCard
-            key={election.id}
-            election={election}
-          />
-        ))}
+        <ElectionCard election={municipalElection} />
       </section>
 
       <FooterWaves />

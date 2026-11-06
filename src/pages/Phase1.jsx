@@ -603,12 +603,22 @@ export default function Phase1({ context = "municipal" }) {
   const inputRef = useRef(null);
   const uploadRequestRef = useRef(null);
 
-  // Load the context's batch marker, then render the personnel records from MongoDB.
+  // Load the context's batch marker, then render the personnel records from MongoDB only if uploaded in current session.
   useEffect(() => {
     if (USE_MOCK) return;
     let cancelled = false;
     (async () => {
       try {
+        const sessionUploaded = typeof sessionStorage !== "undefined"
+          ? sessionStorage.getItem(`phase1_session_uploaded_${context}`)
+          : null;
+        if (!sessionUploaded) {
+          // Fresh session or no upload yet in this session — start with clean empty data
+          setResult({ summary: { total: 0, approved: 0, rejected: 0, needsReview: 0 }, rows: [], batchId: null });
+          setStatus("idle");
+          return;
+        }
+
         const saved = await getWorkflowData(context, "phase1");
         const batchId = saved?.value?.batchId;
         const batchSummary = saved?.value?.summary;
@@ -781,6 +791,10 @@ export default function Phase1({ context = "municipal" }) {
           rejected: upload?.batch?.rejectedRows ?? rejectedRows.length,
           needsReview: 0,
         };
+        if (typeof sessionStorage !== "undefined") {
+          sessionStorage.setItem(`phase1_session_uploaded_${context}`, "true");
+          sessionStorage.setItem(`session_batch_id_${context}`, String(batchId));
+        }
         await saveWorkflowData(context, "phase1", { batchId, summary, rows });
       }
 
@@ -798,6 +812,11 @@ export default function Phase1({ context = "municipal" }) {
   }
 
   function reset() {
+    if (typeof sessionStorage !== "undefined") {
+      sessionStorage.removeItem(`phase1_session_uploaded_${context}`);
+      sessionStorage.removeItem(`session_batch_id_${context}`);
+    }
+    clearWorkflowData(context, "phase1").catch(() => {});
     setFile(null);
     clearUploadRequest(uploadRequestRef);
     setResult(null);
