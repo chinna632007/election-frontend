@@ -1164,10 +1164,29 @@ export default function Phase3({ context = "municipal" }) {
     }
     const q = query.trim().toLowerCase();
     if (q) {
-      list = list.filter((r) =>
-        [r.teamCode, r.ballotId, r.psNo, r.presidingOfficer, r.pollingOfficer, r.microObserver, r.mandal]
-          .join(" ").toLowerCase().includes(q)
-      );
+      list = list.filter((r) => {
+        const teamId = (r.teamCode && r.teamCode !== "—")
+          ? r.teamCode
+          : (teamByOfficer.get(String(r.presidingOfficer || "").trim().toLowerCase())
+             || teamByOfficer.get(String(r.pollingOfficer || "").trim().toLowerCase())
+             || "—");
+        const moName = r.microObserver || moByTeam.get(teamId) || "";
+
+        return [
+          teamId,
+          r.teamCode,
+          r.ballotId,
+          r.stationId,
+          r.psNo,
+          r.psName,
+          r.stationAddress,
+          r.presidingOfficer,
+          r.pollingOfficer,
+          moName,
+          r.mandal,
+          r.remarks
+        ].join(" ").toLowerCase().includes(q);
+      });
     }
     return list;
   }, [rows, statusFilter, viewCategory, query, teamByOfficer, moByTeam]);
@@ -1361,25 +1380,10 @@ export default function Phase3({ context = "municipal" }) {
                   <CrossIcon /> Pending <b>({pendingCount})</b>
                 </button>
               </div>
-
-              <div className="p1-tools">
-                <div className="p1-search-wrap">
-                  <span className="p1-search-icon">
-                    <SearchIcon />
-                  </span>
-                  <input
-                    type="search"
-                    className="p1-search"
-                    placeholder="Search ballot, officer…"
-                    value={query}
-                    onChange={(e) => { setQuery(e.target.value); setPage(1); }}
-                  />
-                </div>
-              </div>
             </div>
 
-            {/* stats */}
-            <div className="p1-stats">
+            {/* stats & search row */}
+            <div className="p1-stats p3-stats-row">
               <div className="p1-stat p1-stat-total">
                 <span className="p1-stat-icon"><DocIcon /></span>
                 <div className="p1-stat-meta">
@@ -1394,18 +1398,37 @@ export default function Phase3({ context = "municipal" }) {
                   <span className="p1-stat-num">{summary.allocated}</span>
                 </div>
               </div>
-              <div className="p1-stat p1-stat-ok">
-                <span className="p1-stat-icon"><TrophyIcon /></span>
+              <div className="p1-stat p1-stat-bad">
+                <span className="p1-stat-icon"><CrossIcon /></span>
                 <div className="p1-stat-meta">
-                  <span className="p1-stat-label">Presiding Used</span>
-                  <span className="p1-stat-num">{summary.presidingCount}</span>
+                  <span className="p1-stat-label">Unallocated</span>
+                  <span className="p1-stat-num">{pendingCount}</span>
                 </div>
               </div>
-              <div className="p1-stat p1-stat-review">
-                <span className="p1-stat-icon"><BadgeIcon /></span>
-                <div className="p1-stat-meta">
-                  <span className="p1-stat-label">Polling Used</span>
-                  <span className="p1-stat-num">{summary.pollingCount}</span>
+
+              {/* Compact Search Field Card only */}
+              <div className="p1-stat p3-search-stat-card">
+                <div className="p1-search-wrap p3-search-stat-wrap">
+                  <span className="p1-search-icon">
+                    <SearchIcon />
+                  </span>
+                  <input
+                    type="search"
+                    className="p1-search p3-search-input-field"
+                    placeholder="Search ballot, officer…"
+                    value={query}
+                    onChange={(e) => { setQuery(e.target.value); setPage(1); }}
+                  />
+                  {query && (
+                    <button
+                      type="button"
+                      className="p3-search-clear-btn"
+                      onClick={() => { setQuery(""); setPage(1); }}
+                      title="Clear search"
+                    >
+                      ✕
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -1575,7 +1598,7 @@ export default function Phase3({ context = "municipal" }) {
                     }}
                     aria-label="View Allocation List"
                   >
-                    <option value="all">No choice</option>
+                    <option value="all">PO/APO and MO</option>
                     <option value="PO-APO">PO/APO</option>
                     <option value="MO">MO</option>
                   </select>
@@ -1592,6 +1615,7 @@ export default function Phase3({ context = "municipal" }) {
                       onChange={(e) => setDownloadCategory(e.target.value)}
                       aria-label="Download Category"
                     >
+                      <option value="all">PO/APO and MO</option>
                       <option value="PO-APO">PO/APO</option>
                       <option value="MO">MO</option>
                     </select>
@@ -1601,9 +1625,9 @@ export default function Phase3({ context = "municipal" }) {
                     className="p3-download-alloc-btn p3-btn-download-cat"
                     onClick={() => downloadBallotExcel(downloadCategory)}
                     disabled={!result || status === "allocating" || rows.length === 0}
-                    title={`Download ${downloadCategory === "PO-APO" ? "PO/APO" : "MO"} station allocation Excel`}
+                    title={`Download ${downloadCategory === "all" ? "PO/APO & MO" : downloadCategory === "PO-APO" ? "PO/APO" : "MO"} station allocation Excel`}
                   >
-                    <DocIcon /> Download {downloadCategory === "PO-APO" ? "PO/APO" : "MO"} (Excel)
+                    <DocIcon /> Download {downloadCategory === "all" ? "PO/APO & MO" : downloadCategory === "PO-APO" ? "PO/APO" : "MO"} (Excel)
                   </button>
                   <button
                     type="button"
